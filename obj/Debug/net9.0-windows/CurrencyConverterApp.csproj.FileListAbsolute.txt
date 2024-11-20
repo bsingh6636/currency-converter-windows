@@ -1,0 +1,14 @@
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\bin\Debug\net9.0-windows\CurrencyConverterApp.exe
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\bin\Debug\net9.0-windows\CurrencyConverterApp.deps.json
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\bin\Debug\net9.0-windows\CurrencyConverterApp.runtimeconfig.json
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\bin\Debug\net9.0-windows\CurrencyConverterApp.dll
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\bin\Debug\net9.0-windows\CurrencyConverterApp.pdb
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.AssemblyInfoInputs.cache
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.AssemblyInfo.cs
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.csproj.CoreCompileInputs.cache
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.dll
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\refint\CurrencyConverterApp.dll
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.pdb
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.genruntimeconfig.cache
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\ref\CurrencyConverterApp.dll

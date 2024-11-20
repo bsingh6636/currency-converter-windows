@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "juZl1JBTkCQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bsing\\OneDrive\\Desktop\\projects\\currencyconverterapp\\CurrencyConverterApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bsing\\.nuget\\packages\\system.net.http.json\\9.0.0\\system.net.http.json.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
