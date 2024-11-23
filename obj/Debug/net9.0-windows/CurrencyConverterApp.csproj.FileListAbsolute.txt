@@ -12,3 +12,4 @@ C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-w
 C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.pdb
 C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.genruntimeconfig.cache
 C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\ref\CurrencyConverterApp.dll
+C:\Users\bsing\OneDrive\Desktop\projects\currencyconverterapp\obj\Debug\net9.0-windows\CurrencyConverterApp.sourcelink.json
