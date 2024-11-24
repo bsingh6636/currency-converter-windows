@@ -166,60 +166,120 @@ namespace CurrencyConverterApp
         }
 
         private async Task ConvertCurrency()
+{
+    if (decimal.TryParse(txtAmount.Text, out decimal amount) &&
+        cmbBaseCurrency.SelectedItem != null &&
+        cmbTargetCurrency.SelectedItem != null)
+    {
+        string baseCurrency = cmbBaseCurrency.SelectedItem.ToString();
+        string targetCurrency = cmbTargetCurrency.SelectedItem.ToString();
+
+        try
         {
-            if (decimal.TryParse(txtAmount.Text, out decimal amount) &&
-                cmbBaseCurrency.SelectedItem != null &&
-                cmbTargetCurrency.SelectedItem != null)
+            lblLoading.Visible = true;
+
+            // Hardcode the NPR exchange rate for USD
+            decimal usdToNprRate = 135.02m; // 1 USD = 135.02 NPR
+            decimal conversionRate = 0;
+
+            if (baseCurrency == "NPR")
             {
-                string baseCurrency = cmbBaseCurrency.SelectedItem.ToString();
-                string targetCurrency = cmbTargetCurrency.SelectedItem.ToString();
-
-                try
+                if (targetCurrency == "NPR")
                 {
-                    lblLoading.Visible = true;
-                    decimal conversionRate = 0;
+                    // Same currency conversion (NPR to NPR)
+                    conversionRate = 1;
+                }
+                else
+                {
+                    // Convert NPR to another currency via USD
+                    using HttpClient client = new HttpClient();
+                    var response = await client.GetFromJsonAsync<CurrencyResponse>("https://v6.exchangerate-api.com/v6/36a6c66876719e286f1a6b8f/latest/USD");
 
-                    // Handle NPR separately
-                    if (baseCurrency == "NPR" || targetCurrency == "NPR")
+                    if (response?.Conversion_Rates != null && response.Conversion_Rates.ContainsKey(targetCurrency))
                     {
-                        conversionRate = (baseCurrency == "NPR") ? 0.0075m : 133.33m;
+                        decimal targetToUsdRate = response.Conversion_Rates[targetCurrency];
+                        conversionRate = (1 / usdToNprRate) * targetToUsdRate;
                     }
                     else
                     {
-                        using HttpClient client = new HttpClient();
-                        string url = $"https://api.exchangerate.host/convert?from={baseCurrency}&to={targetCurrency}";
-                        var response = await client.GetFromJsonAsync<ExchangeRateConvertResponse>(url);
-
-                        if (response != null && response.Info != null)
-                        {
-                            conversionRate = response.Info.Rate;
-                        }
-                    }
-
-                    if (conversionRate > 0)
-                    {
-                        decimal convertedAmount = amount * conversionRate;
-                        lblResult.Text = $"Result: {amount} {baseCurrency} = {convertedAmount:F2} {targetCurrency}";
-                    }
-                    else
-                    {
-                        lblResult.Text = "Error: Unable to fetch exchange rate.";
+                        lblResult.Text = "Error: Target currency not supported.";
+                        return;
                     }
                 }
-                catch (Exception ex)
+            }
+            else if (targetCurrency == "NPR")
+            {
+                // Convert another currency to NPR via USD
+                using HttpClient client = new HttpClient();
+                var response = await client.GetFromJsonAsync<CurrencyResponse>("https://v6.exchangerate-api.com/v6/36a6c66876719e286f1a6b8f/latest/USD");
+
+                if (response?.Conversion_Rates != null && response.Conversion_Rates.ContainsKey(baseCurrency))
                 {
-                    lblResult.Text = $"Error: {ex.Message}";
+                    decimal baseToUsdRate = response.Conversion_Rates[baseCurrency];
+                    conversionRate = usdToNprRate / baseToUsdRate;
                 }
-                finally
+                else
                 {
-                    lblLoading.Visible = false;
+                    lblResult.Text = "Error: Base currency not supported.";
+                    return;
                 }
             }
             else
             {
-                lblResult.Text = "Error: Invalid input.";
+                // Convert between two non-NPR currencies using the API
+                using HttpClient client = new HttpClient();
+                var response = await client.GetFromJsonAsync<CurrencyResponse>("https://v6.exchangerate-api.com/v6/36a6c66876719e286f1a6b8f/latest/USD");
+
+                if (response?.Conversion_Rates != null)
+                {
+                    var rates = response.Conversion_Rates;
+
+                    if (rates.ContainsKey(baseCurrency) && rates.ContainsKey(targetCurrency))
+                    {
+                        decimal baseToUsd = rates[baseCurrency];
+                        decimal targetToUsd = rates[targetCurrency];
+                        conversionRate = targetToUsd / baseToUsd;
+                    }
+                    else
+                    {
+                        lblResult.Text = "Error: Currency not supported.";
+                        return;
+                    }
+                }
+                else
+                {
+                    lblResult.Text = "Error: Unable to fetch exchange rates.";
+                    return;
+                }
+            }
+
+            // Calculate and display the converted amount
+            if (conversionRate > 0)
+            {
+                decimal convertedAmount = amount * conversionRate;
+                lblResult.Text = $"Result: {amount} {baseCurrency} = {convertedAmount:F2} {targetCurrency}";
+            }
+            else
+            {
+                lblResult.Text = "Error: Conversion rate is zero or negative.";
             }
         }
+        catch (Exception ex)
+        {
+            lblResult.Text = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            lblLoading.Visible = false;
+        }
+    }
+    else
+    {
+        lblResult.Text = "Error: Invalid input.";
+    }
+}
+
+
 
         public class CurrencySymbolsResponse
         {
